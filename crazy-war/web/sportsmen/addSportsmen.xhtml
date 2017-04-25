@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"          
+      xmlns:f="http://xmlns.jcp.org/jsf/core"    
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+       
+    </h:head>
+    <body>
+
+        <h:form>
+            <p><p:outputLabel for="spname" value="Sportsman's name:"/></p>
+            <p><p:inputText id="spname" type="text" value="#{controller.sportsmanToAdd.name}"/>  </p>
+            <h:outputLabel value="Team: " for="Team" />
+            <h:selectOneMenu id="Team" value="#{controller.sportsmanToAdd.team}">
+                <f:selectItems value="#{controller.itemsAvailableSelectOne}"/>
+            </h:selectOneMenu>
+            <p><p:commandButton value="Add" action="#{controller.saveSportsmanToAdd()}"/></p>
+        </h:form>
+    </body>
+</html>
