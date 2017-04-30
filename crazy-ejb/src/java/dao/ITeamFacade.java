@@ -8,10 +8,9 @@ package dao;
 import entities.Team;
 import java.util.List;
 import javax.ejb.Local;
-import javax.ejb.Remote;
 
 
-@Remote
+@Local
 public interface ITeamFacade {
     public void addTeam(Team s);    
     public void editTeam(Team s);

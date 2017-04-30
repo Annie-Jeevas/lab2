@@ -21,7 +21,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 
 @Entity
-public class Team implements Serializable {
+public class Team implements Serializable, IWritableEntity {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -86,7 +86,7 @@ public class Team implements Serializable {
 
     @Override
     public String toString() {
-        return teamName;
+        return id.toString();
 
     }
     public String toJson() {
@@ -98,6 +98,11 @@ public class Team implements Serializable {
             return "{}";
         }
 
+    }
+
+    @Override
+    public String getFriendlyName() {
+        return teamName;
     }
 
 }

@@ -3,10 +3,10 @@
     <Scope Scope="Faces Configuration Only"/>
     <Scope Scope="Project">
         <Node id="index.html" x="650" y="150" zoom="true"/>
-        <Node id="sportsmen/addSportsmen.xhtml" x="150" y="150" zoom="true"/>
+        <Node id="sportsmen/addSportsmen.xhtml" x="120" y="94" zoom="true"/>
         <Node id="sportsmen/allSportsmen.xhtml" x="150" y="300" zoom="true"/>
         <Node id="team/addTeam.xhtml" x="400" y="150" zoom="true"/>
-        <Node id="team/allTeams.xhtml" x="400" y="300" zoom="true"/>
+        <Node id="team/allTeams.xhtml" x="481" y="260" zoom="true"/>
     </Scope>
     <Scope Scope="All Faces Configurations"/>
 </Scene>

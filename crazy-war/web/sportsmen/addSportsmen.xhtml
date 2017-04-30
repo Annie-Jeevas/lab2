@@ -12,18 +12,18 @@ and open the template in the editor.
     <h:head>
         <title>TODO supply a title</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-       
+
     </h:head>
     <body>
 
         <h:form>
             <p><p:outputLabel for="spname" value="Sportsman's name:"/></p>
-            <p><p:inputText id="spname" type="text" value="#{controller.sportsmanToAdd.name}"/>  </p>
-            <h:outputLabel value="Team: " for="Team" />
-            <h:selectOneMenu id="Team" value="#{controller.sportsmanToAdd.team}">
-                <f:selectItems value="#{controller.itemsAvailableSelectOne}"/>
+            <p><h:inputText id="spname" value="#{controller.sportsmanToAdd.name}"/></p>
+            <h:outputLabel value="Team: " for="teamName" />
+            <h:selectOneMenu id="teamName" value="#{controller.sportsmanTeamID}">
+                <f:selectItems value="#{controller.itemsAvailableSelectOne}" />
             </h:selectOneMenu>
-            <p><p:commandButton value="Add" action="#{controller.saveSportsmanToAdd()}"/></p>
+            <p><h:commandLink value="Add" action="#{controller.saveSportsmanToAdd}"/></p>
         </h:form>
     </body>
 </html>

@@ -15,12 +15,13 @@ and open the template in the editor.
     <body>        
         <h:form>  
             <p>
-            <p:outputLabel for="teamName" value="Team's name:"/>
-            <p:inputText id="teamName" type="text" value="#{controller.teamToAdd.teamName}"/>  </p>  
+                <p:outputLabel for="teamName" value="Team's name:"/>
+                <p:inputText id="teamName" type="text" value="#{controller.teamToAdd.teamName}"/>  
+            </p>  
             <p>
-            <p:outputLabel for="icon" value="Icon:"/>
-            <p:inputText id="icon" type="text" value="#{controller.teamToAdd.icon}"/> </p>
-            
+                <p:outputLabel for="icon" value="Icon:"/>
+                <p:inputText id="icon" type="text" value="#{controller.teamToAdd.icon}"/> 
+            </p>
             <p:commandButton value="Add" action="#{controller.saveTeamToAdd()}"/>
         </h:form>
     </body>

@@ -1,5 +1,6 @@
 package beans;
 
+import entities.IWritableEntity;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -9,7 +10,7 @@ import javax.faces.model.SelectItem;
 
 public class JsfUtil {
 
-    public static SelectItem[] getSelectItems(List<?> entities, boolean selectOne) {
+    public static SelectItem[] getSelectItems(List<? extends IWritableEntity> entities, boolean selectOne) {
         int size = selectOne ? entities.size() + 1 : entities.size();
         SelectItem[] items = new SelectItem[size];
         int i = 0;
@@ -17,8 +18,8 @@ public class JsfUtil {
             items[0] = new SelectItem("", "---");
             i++;
         }
-        for (Object x : entities) {
-            items[i++] = new SelectItem(x, x.toString());
+        for (IWritableEntity x : entities) {
+            items[i++] = new SelectItem( x.toString(),x.getFriendlyName());
         }
         return items;
     }

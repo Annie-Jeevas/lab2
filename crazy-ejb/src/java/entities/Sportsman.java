@@ -23,7 +23,7 @@ import org.codehaus.jackson.map.ObjectMapper;
  * @author Анюта
  */
 @Entity
-public class Sportsman implements Serializable {
+public class Sportsman implements Serializable, IWritableEntity {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -34,7 +34,7 @@ public class Sportsman implements Serializable {
     //еще какие-то поля
     //поправить тест на Team когда добавлю
     @JsonIgnore
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne//(cascade = CascadeType.PERSIST)
     private Team team;
 
     public Long getId() {
@@ -90,7 +90,7 @@ public class Sportsman implements Serializable {
 
     @Override
     public String toString() {
-        return name;
+        return id.toString();
     }
     public String toJson() {
         ObjectMapper mapper = new ObjectMapper();
@@ -100,6 +100,11 @@ public class Sportsman implements Serializable {
             Logger.getLogger(Team.class.getName()).log(Level.SEVERE, null, ex);
             return "{}";
         }
+    }
+
+    @Override
+    public String getFriendlyName() {
+        return name;
     }
     
 }
