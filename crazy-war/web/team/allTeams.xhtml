@@ -15,7 +15,7 @@ and open the template in the editor.
     <body>
         <h:form>                
             <h:outputText value="Teams"/>               
-            <h:dataTable value="#{controller.AllTeams()}" var="item">
+            <h:dataTable value="#{controller.AllTeams()}" var="item" style="border-style: dotted; border-color: gray">
                 <h:column>
                     <f:facet name="header">
                         <h:outputText value="IDTeam"/>
@@ -33,7 +33,13 @@ and open the template in the editor.
                         <h:outputText value="Team name"/>
                     </f:facet>
                     <h:outputText value="#{item.teamName}"/>
-                </h:column>                
+                </h:column>      
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value=" "/>
+                    </f:facet>
+                    <h:commandLink value="View" action="#{controller.showTeam(item)}"/>
+                </h:column>  
             </h:dataTable>
         </h:form>
     </body>
