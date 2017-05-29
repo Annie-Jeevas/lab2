@@ -21,4 +21,18 @@
             <var>bundle</var>
         </resource-bundle>
     </application>
+    <navigation-rule>
+        <from-view-id>/team/allTeams.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>showTeam</from-outcome>
+            <to-view-id>/team/viewTeam.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/team/addTeam.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>successTeamSave</from-outcome>
+            <to-view-id>/team/allTeams.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>

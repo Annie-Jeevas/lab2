@@ -7,7 +7,7 @@ package entities;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,8 +17,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.ObjectMapper;
 
@@ -27,32 +25,25 @@ import org.codehaus.jackson.map.ObjectMapper;
  * @author Анюта
  */
 @Entity
-public class Sportsman implements Serializable, IWritableEntity, IJsonParsable {
+public class RaceResult implements Serializable,IJsonParsable {
 
     private static final long serialVersionUID = 1L;
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    private String name;
-    
-    private boolean gender;
-    
-    @Temporal(TemporalType.DATE)
-    private Date birtdate;
-    
-    private float accuracy;
-    
- 
     @ManyToOne
-    private Team team;
+    private Sportsman racer;
     
-    @JsonIgnore
-    @OneToMany(mappedBy = "racer")
-    private List<RaceResult> raceResults;
+    @ManyToOne
+    private Race race;
     
-            
+    @JsonIgnore    
+    @OneToMany(mappedBy = "raceResult")
+    private List<Mark> raceResults = new ArrayList<Mark>();
+    
+    
 
     public Long getId() {
         return id;
@@ -62,95 +53,60 @@ public class Sportsman implements Serializable, IWritableEntity, IJsonParsable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Sportsman getRacer() {
+        return racer;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRacer(Sportsman racer) {
+        this.racer = racer;
     }
 
-    public Team getTeam() {
-        return team;
+    public Race getRace() {
+        return race;
     }
 
-    public void setTeam(Team team) {
-        this.team = team;
+    public void setRace(Race race) {
+        this.race = race;
     }
 
-    public boolean isGender() {
-        return gender;
-    }
-
-    public void setGender(boolean gender) {
-        this.gender = gender;
-    }
-
-    public Date getBirtdate() {
-        return birtdate;
-    }
-
-    public void setBirtdate(Date birtdate) {
-        this.birtdate = birtdate;
-    }
-
-    public float getAccuracy() {
-        return accuracy;
-    }
-
-    public void setAccuracy(float accuracy) {
-        this.accuracy = accuracy;
-    }
-
-    public List<RaceResult> getRaceResults() {
+    public List<Mark> getRaceResults() {
         return raceResults;
     }
 
     
-    public Sportsman() {
-    }
-    
-
     @Override
     public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);
-        hash += (name != null ? name.hashCode() : 0);
-        hash += (team != null ? team.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Sportsman)) {
+        if (!(object instanceof RaceResult)) {
             return false;
         }
-        Sportsman other = (Sportsman) object;
+        RaceResult other = (RaceResult) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
-        
         return true;
     }
 
     @Override
     public String toString() {
-        return id.toString();
+        return "entities.Result[ id=" + id + " ]";
     }
+
+     @Override
     public String toJson() {
-        ObjectMapper mapper = new ObjectMapper();
+       ObjectMapper mapper = new ObjectMapper();
         try {
             return mapper.writeValueAsString(this);
         } catch (IOException ex) {
-            Logger.getLogger(Team.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RaceResult.class.getName()).log(Level.SEVERE, null, ex);
             return "{}";
         }
     }
-
-    @Override
-    public String getFriendlyName() {
-        return name;
-    }
-    
 }

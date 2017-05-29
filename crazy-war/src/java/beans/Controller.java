@@ -14,10 +14,6 @@ import java.io.Serializable;
 import java.util.List;
 import javax.annotation.ManagedBean;
 import javax.ejb.EJB;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.convert.FacesConverter;
 import javax.faces.model.SelectItem;
 
 /**
@@ -35,6 +31,7 @@ public class Controller implements Serializable {
     private Sportsman sportsmanToAdd;
     private Long sportsmanTeamID;
     private Team teamToAdd = new Team();
+    private Team teamToShow = new Team();
 
     public Controller() {
     }
@@ -49,6 +46,11 @@ public class Controller implements Serializable {
     public Team getTeamToAdd() {
         return teamToAdd;
     }
+
+    public Team getTeamToShow() {
+        return teamToShow;
+    }
+    
 
     public void setSportsmanToAdd(Sportsman sportsmanToAdd) {
         this.sportsmanToAdd = sportsmanToAdd;
@@ -74,9 +76,10 @@ public class Controller implements Serializable {
         return "sportsmanAdded";
     }
 
-    public void saveTeamToAdd() {
+    public String saveTeamToAdd() {
         tf.addTeam(teamToAdd);
         teamToAdd = new Team();
+        return "successTeamSave";
     }
 
     public SelectItem[] getItemsAvailableSelectOne() {
@@ -90,32 +93,9 @@ public class Controller implements Serializable {
     public List<Sportsman> AllSportsmen() {
         return spb.findAllSportsmen();
     }
-//
-//    @FacesConverter(forClass = Team.class)
-//    public static class TeamControllerConverter implements Converter {
-//
-//        @Override
-//        public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
-//            if (value == null || value.length() == 0) {
-//                return null;
-//            }
-//            Controller controller = (Controller) facesContext.getApplication().getELResolver().
-//                    getValue(facesContext.getELContext(), null, "controller");
-//            return controller.getSportsmanToAdd().getTeam().getTeamName();
-//        }
-//        
-//        @Override
-//        public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
-//            if (object == null) {
-//                return null;
-//            }
-//            if (object instanceof Team) {
-//                Team o = (Team) object;
-//                return o.toString();
-//            } else {
-//                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Team.class.getName());
-//            }
-//        }
 
-//    }
+    public String showTeam(Team t){
+        teamToShow = t;
+        return "showTeam";
+    }
 }
