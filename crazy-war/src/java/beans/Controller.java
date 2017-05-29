@@ -28,6 +28,8 @@ public class Controller implements Serializable {
     private ISportsmenBean spb;
     @EJB
     private ITeamFacade tf;
+    @EJB
+    TransactionBean trb;
     private Sportsman sportsmanToAdd;
     private Long sportsmanTeamID;
     private Team teamToAdd = new Team();
@@ -97,5 +99,8 @@ public class Controller implements Serializable {
     public String showTeam(Team t){
         teamToShow = t;
         return "showTeam";
+    }
+    public String FirstTransaction(){
+        return trb.SuccessTransaction();
     }
 }
