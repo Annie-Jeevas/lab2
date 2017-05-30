@@ -62,15 +62,17 @@ public class TransactionBean {
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public String thirdTransaction() {
-        Sportsman s = sb.findAllSportsmen().get(0);
-        s.setAccuracy(s.getAccuracy() - 0.01F);
-        sb.editSportsman(s);
         try {
+            Sportsman s = sb.findAllSportsmen().get(0);
+            s.setAccuracy(s.getAccuracy() - 0.01F);
+            sb.editSportsman(s);
             reduceAccuracyWithException(s);
         } catch (EJBException ex) {
+            scontext.setRollbackOnly();
             return "Success3";
         }
         return "Not-success3";
+
     }
 
     @TransactionAttribute(TransactionAttributeType.MANDATORY)
