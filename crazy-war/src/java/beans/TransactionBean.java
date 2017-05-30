@@ -53,7 +53,7 @@ public class TransactionBean {
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public String secondTransaction() {
         Sportsman s = sb.findAllSportsmen().get(0);
-        s.setAccuracy(s.getAccuracy() - 0.01F); //исключение, если не найден
+        s.setAccuracy(s.getAccuracy() - 0.01F);
         reduceAccuracy(s);
         sb.editSportsman(s);
         scontext.setRollbackOnly();
@@ -63,7 +63,7 @@ public class TransactionBean {
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public String thirdTransaction() {
         Sportsman s = sb.findAllSportsmen().get(0);
-        s.setAccuracy(s.getAccuracy() - 0.01F); //исключение, если не найден
+        s.setAccuracy(s.getAccuracy() - 0.01F);
         sb.editSportsman(s);
         try {
             reduceAccuracyWithException(s);
@@ -74,19 +74,47 @@ public class TransactionBean {
     }
 
     @TransactionAttribute(TransactionAttributeType.MANDATORY)
-    private void reduceAccuracyWithException(Sportsman s) {
-        reduceAccuracy(s);
+    private void reduceAccuracyWithException(Sportsman s) throws EJBException {
+        SportsmanDetails details = sdf.find(s.getId());
+        details.setAccuracy(s.getAccuracy());
+        sdf.edit(details);
         throw new EJBException();
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public String fourthTransaction() {
+
         Sportsman s = sb.findAllSportsmen().get(0);
-        s.setAccuracy(s.getAccuracy() - 0.01F); //исключение, если не найден
-        reduceAccuracyWithException(s);
+        s.setAccuracy(s.getAccuracy() - 0.01F);
         sb.editSportsman(s);
+        reduceAccuracyNotSupported(s);
         scontext.setRollbackOnly();
-        return "Success2";
+        return "Success4";
+
+    }
+
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    private void reduceAccuracyNotSupported(Sportsman s) {
+        SportsmanDetails details = sdf.find(s.getId());
+        details.setAccuracy(s.getAccuracy());
+        sdf.edit(details);
+    }
+
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public String fifthTransaction() {
+
+        Sportsman s = sb.findAllSportsmen().get(0);
+        s.setAccuracy(s.getAccuracy() - 0.01F);
+        sb.editSportsman(s);
+        reduceAccuracyRequiresNew(s);
+        scontext.setRollbackOnly();
+        return "Success5";
+
+    }
+
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    private void reduceAccuracyRequiresNew(Sportsman s) {
+        reduceAccuracy(s);
     }
 
 }
